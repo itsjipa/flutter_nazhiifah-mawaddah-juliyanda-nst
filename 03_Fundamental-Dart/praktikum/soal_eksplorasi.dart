@@ -13,7 +13,7 @@ void main() {
         "kata $kata jika dibalik adalah $rev sehingga kata ini merupakan kata palindrom");
   } else {
     print(
-        "kata $kata jika dibalik adalah $rev sehingga kata ini bukan kata palindrom");
+        "kata $kata jika dibalik adalah $rev sehingga kata ini bukan merupakan kata palindrom");
   }
 
   // Soal eksplorasi poin 2 tentang mencari faktor dari sebuah bilangan yang dimasukkan
