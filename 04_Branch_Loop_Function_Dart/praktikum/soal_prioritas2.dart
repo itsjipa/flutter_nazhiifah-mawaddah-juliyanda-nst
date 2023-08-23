@@ -54,13 +54,30 @@ void main() {
   }
   stdout.writeln();
 
-  // Soal prioritas 2 poin 3 tugas function tentang Buatlah sebuah function dengan parameter untuk menghitung luas lingkaran. kemudian function lingkaran tersebut dijalankan pada function main
+  // Soal prioritas 2 poin 3 tentang mencari nilai faktorial
+
+  // inputan user
+  stdout.write("Masukkan nilai : ");
+  int nilai = int.parse(stdin.readLineSync()!);
+
+  // inisialisasi
+  int faktorial, i;
+
+  faktorial = 1;
+  for (i = 1; i <= nilai; i++) {
+    faktorial = faktorial * i;
+  }
+  // menampilkan output
+  print("$nilai! = $faktorial");
+  stdout.writeln();
+
+  // Soal prioritas 2 poin 4 tugas function tentang Buatlah sebuah function dengan parameter untuk menghitung luas lingkaran. kemudian function lingkaran tersebut dijalankan pada function main
 
   stdout.write('Masukkan nilai jari - jari : ');
   int jari = int.parse(stdin.readLineSync()!);
 
   double luas = luasLingkaran(jari);
-  
+
   print("Luas lingkaran adalah $luas");
 }
 
