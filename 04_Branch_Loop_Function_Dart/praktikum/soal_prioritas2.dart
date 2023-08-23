@@ -7,15 +7,15 @@ void main() {
   for (a = 1; a <= 9; a++) {
     // memberikan spasi
     for (b = 8; b >= a; b--) {
-      stdout.write(" ");
+      stdout.write("   ");
     }
     // mencetak bintang dari kanan ke kiri
     for (c = 1; c <= a; c++) {
-      stdout.write("*");
+      stdout.write(" * ");
     }
     // mencetak bintang dari kiri ke kanan
     for (d = 1; d <= a - 1; d++) {
-      stdout.write("*");
+      stdout.write(" * ");
     }
     // memberikan baris baru atau enter pada kode
     stdout.writeln();
@@ -61,11 +61,11 @@ void main() {
   int nilai = int.parse(stdin.readLineSync()!);
 
   // inisialisasi
-  int faktorial, i;
+  BigInt faktorial = BigInt.one;
 
-  faktorial = 1;
-  for (i = 1; i <= nilai; i++) {
-    faktorial = faktorial * i;
+  
+  for (int i = nilai; i > 0; i--) {
+    faktorial = faktorial * BigInt.from(i);
   }
   // menampilkan output
   print("$nilai! = $faktorial");

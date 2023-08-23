@@ -29,7 +29,7 @@ void main() {
 
   for (int i = 1; i <= angka1; i++) {
     for (int j = 1; j <= angka1; j++) {
-      stdout.write("${i * j } \t");
+      stdout.write("${i * j}\t");
     }
     stdout.writeln();
   }
