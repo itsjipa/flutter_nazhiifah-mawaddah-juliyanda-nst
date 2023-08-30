@@ -6,7 +6,7 @@ import 'student.dart';
 
 void main() {
   // membuat instance class dari calculator
-  Calculator calc = Calculator();
+  final Calculator calc = Calculator();
 
   // cetak hasil dari pemanggilan method
   calc.penjumlahan(10, 20);
@@ -17,11 +17,11 @@ void main() {
   stdout.writeln();
 
   // membuat beberapa course
-  Course fisika = Course("Fisika", "Fisika Dasar");
-  Course olahraga = Course("Penjas", "Roll Depan");
-  Course seniBudaya = Course("Seni Budaya", "Melukis Alam");
+  final Course fisika = Course("Fisika", "Fisika Dasar");
+  final Course olahraga = Course("Penjas", "Roll Depan");
+  final Course seniBudaya = Course("Seni Budaya", "Melukis Alam");
 
-  Student freya = Student("Freya", "12");
+  final Student freya = Student("Freya", "12");
 
   // menambahkan course 
   freya.tambahCourse(fisika);

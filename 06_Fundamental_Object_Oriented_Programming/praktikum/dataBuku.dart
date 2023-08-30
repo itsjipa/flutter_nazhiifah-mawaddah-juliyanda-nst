@@ -1,10 +1,10 @@
 class DataBuku {
   // membuat properti dari data buku yaitu id, judul, penerbit, harga dan kategori
-  int id;
+  final int id;
   String judul;
   String penerbit;
-  int harga;
-  String kategori;
+  final int harga;
+  final String kategori;
 
   // constructor untuk kelas data buku
   DataBuku(this.id, this.judul, this.penerbit, this.harga, this.kategori);

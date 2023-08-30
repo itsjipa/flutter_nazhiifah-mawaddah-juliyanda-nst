@@ -8,7 +8,7 @@ class Student {
   String kelas;
 
   // inisialisasi daftar course dengan list kosong
-  List<Course> dftrCourse = [];
+  final List<Course> dftrCourse = [];
 
   Student(this.nama, this.kelas);
 
@@ -31,7 +31,7 @@ class Student {
       print("Course dengan nama $nama yang ada di kelas $kelas");
       
       // maka lakukan perulangan untuk mencetak semua course yang ada didalam list daftar course dalam
-      for (Course course in dftrCourse) {
+      for (final Course course in dftrCourse) {
         print(course.judul + ": " + course.deskripsi);
       }
 

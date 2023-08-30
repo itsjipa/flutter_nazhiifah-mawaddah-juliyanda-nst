@@ -1,21 +1,21 @@
 class Calculator {
   // method untuk melakukan penjumlahan dua bilangan
-  void penjumlahan(int x, int y) {
-    print(x + y);
+  void penjumlahan(final int x, int y) {
+    print("Penjumlahan : ${x + y}" );
   }
 
   // method untuk melakukan pengurangan dua bilangan
-  void pengurangan(int x, int y) {
-    print(x - y);
+  void pengurangan(final int x, int y) {
+    print("Pengurangan : ${x - y}");
   }
 
   // method untuk melakukan perkalian dua bilangan
-  void perkalian(int x, int y) {
-    print(x * y);
+  void perkalian(final int x, int y) {
+    print("Perkalian   : ${x * y}");
   }
 
   // method untuk melakukan pembagian dua bilangan
-  void pembagian(int x, int y) {
-    print(x / y);
+  void pembagian(final int x, int y) {
+    print("Pembagian   : ${x / y}");
   }
 }

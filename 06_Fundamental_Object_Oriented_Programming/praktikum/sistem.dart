@@ -4,7 +4,7 @@ import 'dataBuku.dart';
 
 class SistemToko {
   // properti dari sistem yang berisi list kosong
-  List<DataBuku> buku = [];
+  final List<DataBuku> buku = [];
 
   // method untuk menambahkan buku
   void tambahBuku(DataBuku dataBuku) {
@@ -27,7 +27,7 @@ class SistemToko {
       print("ID\tJudul\t\tPenerbit\tHarga\tKategori");
 
       // maka lakukan perulangan untuk setiap data buku di dalam buku
-      for (DataBuku dataBuku in buku) {
+      for (final DataBuku dataBuku in buku) {
         // mengecek kondisi jika panjang judul lebih besar daripada 8 atau panjang penerbit lebih besar 10
         if (dataBuku.judul.length >= 8 || dataBuku.penerbit.length >= 10) {
           // mengambil string dengan indeks awalnya 0 dan indeks akhirnya 8 lalu tambahkan ...

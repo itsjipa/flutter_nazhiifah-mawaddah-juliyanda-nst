@@ -1,6 +1,6 @@
 class Hewan {
   // property yang menyimpan berat badan hewan
-  double beratBadan;
+  final double beratBadan;
 
   // constructor untuk kelas hewan
   Hewan(this.beratBadan);

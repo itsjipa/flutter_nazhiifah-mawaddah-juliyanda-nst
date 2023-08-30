@@ -2,16 +2,16 @@ import 'hewan.dart';
 
 class Mobil {
   // property untuk kapasitas total berat maksimum muatan
-  double kapasitas;
+  final double kapasitas;
 
   // property yang menyimpan list data hewan dalam muatan
-  List<Hewan> muatan = [];
+  final List<Hewan> muatan = [];
 
   // constructor untuk kelas mobil
   Mobil(this.kapasitas);
 
   // method yang digunakan untuk menambah data hewan ke list muatan
-  void tambahMuatan(Hewan hewan) {
+  void tambahMuatan(final Hewan hewan) {
     // kondisi untuk mengecek kapasitasnya udah mencukupi atau belum
     if (hewan.beratBadan + totalBeratMuatan() <= this.kapasitas) {
       // maka tambahkan hewan kedalam list muatan
@@ -29,7 +29,7 @@ class Mobil {
     double total = 0.0;
 
     // perulangan untuk mengulangi setiap hewan di dalam list muatan
-    for (Hewan hewan in muatan) {
+    for (final Hewan hewan in muatan) {
       // tambahkan berat badan hewan untuk dijumlahkan
       total += hewan.beratBadan;
     }
