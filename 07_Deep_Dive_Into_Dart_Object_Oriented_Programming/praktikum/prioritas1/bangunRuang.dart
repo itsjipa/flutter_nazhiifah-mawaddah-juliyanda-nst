@@ -8,5 +8,5 @@ abstract class BangunRuang {
   BangunRuang(this.panjang, this.lebar, this.tinggi);
 
   // method untuk menghitung volume bangun ruang
-  void volume() {}
+  volume() {}
 }
