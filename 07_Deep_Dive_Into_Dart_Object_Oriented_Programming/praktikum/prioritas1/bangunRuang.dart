@@ -1,4 +1,4 @@
-abstract class BangunRuang {
+class BangunRuang {
   // property untuk bangun ruang yaitu panjang, lebar, dan  tinggi
   final int panjang;
   final int lebar;
