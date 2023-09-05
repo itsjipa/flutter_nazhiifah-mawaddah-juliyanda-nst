@@ -17,10 +17,9 @@ class Prioritas2 extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      backgroundColor: Colors.blueGrey.shade100,
       body: Container(
         alignment: Alignment.center,
-        child: const Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
@@ -30,14 +29,20 @@ class Prioritas2 extends StatelessWidget {
                 fontSize: 18,
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
             Text(
               "Nazhiifah Mawaddah Juliyanda Nst",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text(
+                "Button",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
               ),
             )
           ],

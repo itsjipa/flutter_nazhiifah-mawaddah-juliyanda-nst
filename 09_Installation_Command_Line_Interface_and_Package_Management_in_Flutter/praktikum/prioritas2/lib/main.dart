@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prioritas2/prioritas2.dart';
+import 'package:prioritas2/screen/prioritas2.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,8 +15,15 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-        useMaterial3: false,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+        appBarTheme: AppBarTheme(color: Colors.amber.shade600),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.amber,
+            shadowColor: Color(0xFFFfa),
+          ),
+        ),
       ),
       home: const Prioritas2(),
     );
