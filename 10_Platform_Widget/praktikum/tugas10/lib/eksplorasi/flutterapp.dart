@@ -55,30 +55,30 @@ class EksplorasiHomePage extends StatelessWidget {
           color: Colors.black,
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white70,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.favorite,
-            ),
-            label: "Favorites",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.search,
-            ),
-            label: "Search",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.info,
-            ),
-            label: "Information",
-          ),
-        ],
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   selectedItemColor: Colors.white,
+      //   unselectedItemColor: Colors.white70,
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(
+      //         Icons.favorite,
+      //       ),
+      //       label: "Favorites",
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(
+      //         Icons.search,
+      //       ),
+      //       label: "Search",
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(
+      //         Icons.info,
+      //       ),
+      //       label: "Information",
+      //     ),
+      //   ],
+      // ),
     );
   }
 }

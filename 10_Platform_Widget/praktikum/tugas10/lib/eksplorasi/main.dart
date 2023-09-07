@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tugas10/eksplorasi/flutterapp.dart';
+import 'package:tugas10/eksplorasi/navbarscreen.dart';
 
 class Eksplorasi extends StatelessWidget {
   const Eksplorasi({super.key});
@@ -20,7 +21,7 @@ class Eksplorasi extends StatelessWidget {
           ),
         )
       ),
-      home: EksplorasiHomePage(),
+      home: NavbarScreen(),
     );
   }
 }
