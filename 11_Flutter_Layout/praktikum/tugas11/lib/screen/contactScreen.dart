@@ -10,10 +10,12 @@ class ContactScreen extends StatefulWidget {
 
 class _ContactScreenState extends State<ContactScreen> {
   final _formKey = GlobalKey<FormState>();
-  String _namaValidasi = '';
-  String _nomorValidasi = '';
+  TextEditingController _namaController = TextEditingController();
+  TextEditingController _nomotController = TextEditingController();
+
   List<Contact> _contacts = List.empty(growable: true);
 
+  int selectIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,24 +36,24 @@ class _ContactScreenState extends State<ContactScreen> {
           padding: const EdgeInsets.all(15.0),
           child: Column(
             children: [
-              Icon(
+              const Icon(
                 Icons.contact_phone_outlined,
                 color: Colors.black54,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Text(
+              const Text(
                 "Create New Contacts",
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 20,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.0),
                 child: Text(
                   "A dialog is a type of modal window that appears in front of app content to provide critical information, or prompt for a decision to be made.",
@@ -61,12 +63,12 @@ class _ContactScreenState extends State<ContactScreen> {
                   ),
                 ),
               ),
-              Divider(
+              const Divider(
                 thickness: 1,
                 endIndent: 15.0,
                 indent: 15.0,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Form(
@@ -93,7 +95,7 @@ class _ContactScreenState extends State<ContactScreen> {
                         return null;
                       },
                       keyboardType: TextInputType.name,
-                      onSaved: (val) => setState(() => _namaValidasi = val!),
+                      controller: _namaController,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.only(left: 12),
                         hintText: 'Insert Your Name',
@@ -103,12 +105,12 @@ class _ContactScreenState extends State<ContactScreen> {
                         labelText: 'Name',
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                      onSaved: (val) => setState(() => _nomorValidasi = val!),
+                      controller: _nomotController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Nomor harus diisi';
@@ -139,42 +141,53 @@ class _ContactScreenState extends State<ContactScreen> {
               ),
               Container(
                 alignment: Alignment.centerRight,
-                padding: const EdgeInsets.only(top: 10.0, bottom: 15.0,),
+                padding: const EdgeInsets.only(
+                  top: 10.0,
+                  bottom: 15.0,
+                ),
                 child: ElevatedButton(
                   onPressed: () async {
                     var form = _formKey.currentState;
+                    String nama = _namaController.text.trim();
+                    String nomor = _nomotController.text.trim();
+
                     if (form!.validate()) {
                       form.save();
-                      print(
-                          "title : Contacts${_contacts.length}, subtitle : Contacts");
-                      print(_contacts.asMap());
+                      // print(
+                      //     "title : Contacts${_contacts.length}, subtitle : Contacts");
+                      // print(_contacts.asMap());
+                      setState(() {
+                        _namaController.text = '';
+                        _nomotController.text = '';
+                        _contacts.add(Contact(nama: nama, nomor: nomor));
+                      });
                     }
-                    _contacts.add(
-                        Contact(nama: _namaValidasi, nomor: _nomorValidasi));
+
                     form.reset();
                   },
-                  child: Text('Submit'),
+                  child: const Text('Submit'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurple.shade800,
                     foregroundColor: Colors.white,
                   ),
                 ),
               ),
-              _contacts.isEmpty ? Container() : Text(
-                          "List Contacts",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black,
-                          ),
-                        ),
+              _contacts.isEmpty
+                  ? Container()
+                  : const Text(
+                      "List Contacts",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black,
+                      ),
+                    ),
               ListView.builder(
                   shrinkWrap: true,
                   itemCount: _contacts.length,
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
-                        
                         ListTile(
                           leading: CircleAvatar(
                             child: Text(
@@ -189,20 +202,32 @@ class _ContactScreenState extends State<ContactScreen> {
                               children: [
                                 Expanded(
                                   child: IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
+                                    onPressed: () {
+                                      _namaController.text =
+                                          _contacts[index].nama;
+                                      _nomotController.text =
+                                          _contacts[index].nomor;
+                                      setState(() {
+                                        selectIndex = index;
+                                      });
+                                    },
+                                    icon: const Icon(
                                       Icons.edit,
                                       size: 17,
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 15,
                                 ),
                                 Expanded(
                                   child: IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
+                                    onPressed: () {
+                                      setState(() {
+                                        _contacts.removeAt(index);
+                                      });
+                                    },
+                                    icon: const Icon(
                                       Icons.delete,
                                       size: 17,
                                     ),
