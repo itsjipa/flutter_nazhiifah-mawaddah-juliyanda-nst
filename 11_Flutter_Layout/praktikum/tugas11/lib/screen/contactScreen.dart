@@ -147,7 +147,7 @@ class _ContactScreenState extends State<ContactScreen> {
                       form.save();
                       print(
                           "title : Contacts${_contacts.length}, subtitle : Contacts");
-                      print(_contacts.length);
+                      print(_contacts.asMap());
                     }
                     _contacts.add(
                         Contact(nama: _namaValidasi, nomor: _nomorValidasi));
