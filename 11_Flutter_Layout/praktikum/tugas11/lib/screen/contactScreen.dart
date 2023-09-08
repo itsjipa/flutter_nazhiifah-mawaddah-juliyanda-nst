@@ -10,7 +10,8 @@ class ContactScreen extends StatefulWidget {
 
 class _ContactScreenState extends State<ContactScreen> {
   final _formKey = GlobalKey<FormState>();
-
+  String _namaValidasi = '';
+  String _nomorValidasi = '';
   List<Contact> _contacts = List.empty(growable: true);
 
   @override
@@ -82,7 +83,8 @@ class _ContactScreenState extends State<ContactScreen> {
                         if (value.length < 2) {
                           return "Nama harus memiliki minimal 2 kata";
                         }
-                        if (value.split(' ').every((element) => element[0] == element[0].toLowerCase())) {
+                        if (value.split(' ').every((element) =>
+                            element[0] == element[0].toLowerCase())) {
                           return 'Nama harus dimulai dengan huruf kapital';
                         }
                         if (value.contains(RegExp(r'[\d\W]'))) {
@@ -91,7 +93,7 @@ class _ContactScreenState extends State<ContactScreen> {
                         return null;
                       },
                       keyboardType: TextInputType.name,
-                      // onSaved: (val) => setState(() => _contact.nama = val!) ,
+                      onSaved: (val) => setState(() => _namaValidasi = val!),
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.only(left: 12),
                         hintText: 'Insert Your Name',
@@ -106,7 +108,7 @@ class _ContactScreenState extends State<ContactScreen> {
                     ),
                     TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                      // onSaved: (val) => setState(() => _contact.nomor = val!),
+                      onSaved: (val) => setState(() => _nomorValidasi = val!),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Nomor harus diisi';
@@ -137,15 +139,19 @@ class _ContactScreenState extends State<ContactScreen> {
               ),
               Container(
                 alignment: Alignment.centerRight,
-                padding: const EdgeInsets.only(top: 10.0),
+                padding: const EdgeInsets.only(top: 10.0, bottom: 15.0,),
                 child: ElevatedButton(
-                  onPressed: () async{
+                  onPressed: () async {
                     var form = _formKey.currentState;
                     if (form!.validate()) {
                       form.save();
-                      print("title : Contacts${_contacts.length}, subtitle : Contacts");
+                      print(
+                          "title : Contacts${_contacts.length}, subtitle : Contacts");
+                      print(_contacts.length);
                     }
-                    _contacts.add(Contact(nama: , nomor: nomor));
+                    _contacts.add(
+                        Contact(nama: _namaValidasi, nomor: _nomorValidasi));
+                    form.reset();
                   },
                   child: Text('Submit'),
                   style: ElevatedButton.styleFrom(
@@ -154,23 +160,62 @@ class _ContactScreenState extends State<ContactScreen> {
                   ),
                 ),
               ),
-              Card(
-                child: ListView.builder(itemCount: _contacts.length, itemBuilder: (context, index) {
-                  return Column(
-                    children: <Widget>[
-                      ListTile(
-                        leading: CircleAvatar(
-                          child: Text(_contacts[index].nama[0]),
+              _contacts.isEmpty ? Container() : Text(
+                          "List Contacts",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black,
+                          ),
                         ),
-                        title: Text(_contacts[index].nama),
-                        subtitle: Text(_contacts[index].nomor),
-                        onTap: (){},
-                      ),
-                      Divider(),
-                    ],
-                  );
-                }),
-              )
+              ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: _contacts.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        
+                        ListTile(
+                          leading: CircleAvatar(
+                            child: Text(
+                              _contacts[index].nama[0],
+                            ),
+                          ),
+                          title: Text(_contacts[index].nama),
+                          subtitle: Text(_contacts[index].nomor),
+                          trailing: SizedBox(
+                            width: 60,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(
+                                      Icons.edit,
+                                      size: 17,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                Expanded(
+                                  child: IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(
+                                      Icons.delete,
+                                      size: 17,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          onTap: () {},
+                        ),
+                      ],
+                    );
+                  }),
             ],
           ),
         ),
