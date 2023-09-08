@@ -54,13 +54,12 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),     
-      body: Center(
-        child: FutureBuilder(
+      body: FutureBuilder(
             future: Future.delayed(
               Duration(seconds: 6),
             ),
-            builder: (context, element) {
-              if (element.connectionState == ConnectionState.waiting) {
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
                 return Container(
                   alignment: Alignment.center,
                   child: Text(
@@ -102,7 +101,6 @@ class HomePage extends StatelessWidget {
                 );
               }
             }),
-      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
