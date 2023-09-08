@@ -4,7 +4,7 @@ import 'package:tugas10/prioritas1/main.dart';
 import 'package:tugas10/prioritas2/main.dart';
 
 void main() {
-  runApp(Eksplorasi());
+  runApp(Prioritas1());
 }
 
 class MyApp extends StatelessWidget {

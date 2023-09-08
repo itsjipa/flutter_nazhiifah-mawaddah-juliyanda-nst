@@ -53,43 +53,56 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
-      ),
-      backgroundColor: Colors.white,
-      body: ListView.builder(
-          itemCount: data['data']!.length,
-          itemBuilder: (context, index) {
-            var item = data['data']![index];
-            return ListTile(
-              title: Text(
-                item['nama'].toString(),
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500
-                ),
-              ),
-              subtitle: Text(
-                item['number'].toString(),
-                style: TextStyle(
-                  color: Colors.black54,
-                ),
-              ),
-              leading: CircleAvatar(
-                backgroundColor: Colors.green,
-                child: Text(
-                  item['nama'].toString()[0],
-                  style: TextStyle(
-                    color: Colors.white,
+      ),     
+      body: Center(
+        child: FutureBuilder(
+            future: Future.delayed(
+              Duration(seconds: 6),
+            ),
+            builder: (context, element) {
+              if (element.connectionState == ConnectionState.waiting) {
+                return Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "This is a material App",
                   ),
-                ),
-              ),
-            );
-          }),
-      // Container(
-      //   alignment: Alignment.center,
-      //   child: Text(
-      //     "This is a material App",
-      //   ),
-      // ),
+                );
+              } else {
+                return Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white
+                  ),
+                  child: ListView.builder(
+                      itemCount: data['data']!.length,
+                      itemBuilder: (context, index) {
+                        var item = data['data']![index];
+                        return ListTile(
+                          title: Text(
+                            item['nama'].toString(),
+                            style: TextStyle(
+                                color: Colors.black, fontWeight: FontWeight.w500),
+                          ),
+                          subtitle: Text(
+                            item['number'].toString(),
+                            style: TextStyle(
+                              color: Colors.black54,
+                            ),
+                          ),
+                          leading: CircleAvatar(
+                            backgroundColor: Colors.green,
+                            child: Text(
+                              item['nama'].toString()[0],
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
+                );
+              }
+            }),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

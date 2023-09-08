@@ -18,7 +18,7 @@ class EksplorasiHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text("My Flutter App"),
         centerTitle: true,
-        actions: [
+        actions: const [
           Padding(
             padding: const EdgeInsets.only(right: 12),
             child: Icon(
@@ -39,7 +39,7 @@ class EksplorasiHomePage extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),
-              Divider(
+              const Divider(
                 thickness: 1,
               ),
             ],
@@ -55,30 +55,6 @@ class EksplorasiHomePage extends StatelessWidget {
           color: Colors.black,
         ),
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   selectedItemColor: Colors.white,
-      //   unselectedItemColor: Colors.white70,
-      //   items: const <BottomNavigationBarItem>[
-      //     BottomNavigationBarItem(
-      //       icon: Icon(
-      //         Icons.favorite,
-      //       ),
-      //       label: "Favorites",
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(
-      //         Icons.search,
-      //       ),
-      //       label: "Search",
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(
-      //         Icons.info,
-      //       ),
-      //       label: "Information",
-      //     ),
-      //   ],
-      // ),
     );
   }
 }
