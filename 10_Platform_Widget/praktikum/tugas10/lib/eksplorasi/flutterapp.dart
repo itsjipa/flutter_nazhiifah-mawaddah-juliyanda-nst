@@ -16,11 +16,11 @@ class EksplorasiHomePage extends StatelessWidget {
     ];
     return Scaffold(
       appBar: AppBar(
-        title: Text("My Flutter App"),
+        title: const Text("My Flutter App"),
         centerTitle: true,
         actions: const [
           Padding(
-            padding: const EdgeInsets.only(right: 12),
+            padding: EdgeInsets.only(right: 12),
             child: Icon(
               Icons.search,
               color: Colors.white70,
@@ -36,7 +36,7 @@ class EksplorasiHomePage extends StatelessWidget {
               ListTile(
                 title: Text(
                   list[index],
-                  style: TextStyle(fontWeight: FontWeight.w500),
+                  style: const TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),
               const Divider(
@@ -48,9 +48,9 @@ class EksplorasiHomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
-        backgroundColor: Color(0xff03DAC5),
+        backgroundColor: const Color(0xff03DAC5),
         splashColor: Colors.black12,
-        child: Icon(
+        child: const Icon(
           Icons.add,
           color: Colors.black,
         ),
