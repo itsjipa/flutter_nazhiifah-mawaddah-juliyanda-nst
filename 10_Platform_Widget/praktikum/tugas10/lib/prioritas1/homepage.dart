@@ -39,12 +39,12 @@ class HomePage extends StatelessWidget {
     };
     return Scaffold(
       appBar: AppBar(
-        title: Text("MaterialApp"),
+        title: const Text("MaterialApp"),
       ),
       drawer: Drawer(
         child: ListView(
-          padding: EdgeInsets.only(top: 15),
-          children: [
+          padding: const EdgeInsets.only(top: 15),
+          children: const <ListTile>[
             ListTile(
               title: Text("Home"),
             ),
@@ -62,13 +62,13 @@ class HomePage extends StatelessWidget {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Container(
                   alignment: Alignment.center,
-                  child: Text(
+                  child: const Text(
                     "This is a material App",
                   ),
                 );
               } else {
                 return Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white
                   ),
                   child: ListView.builder(
@@ -78,12 +78,12 @@ class HomePage extends StatelessWidget {
                         return ListTile(
                           title: Text(
                             item['nama'].toString(),
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Colors.black, fontWeight: FontWeight.w500),
                           ),
                           subtitle: Text(
                             item['number'].toString(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black54,
                             ),
                           ),
@@ -91,7 +91,7 @@ class HomePage extends StatelessWidget {
                             backgroundColor: Colors.green,
                             child: Text(
                               item['nama'].toString()[0],
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                               ),
                             ),
