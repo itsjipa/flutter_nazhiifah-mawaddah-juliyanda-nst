@@ -5,7 +5,7 @@ class EksplorasiHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final list = [
+    final List<String> list = [
       "Learn Flutter",
       "Learn ReactJS",
       "Learn VueJS",

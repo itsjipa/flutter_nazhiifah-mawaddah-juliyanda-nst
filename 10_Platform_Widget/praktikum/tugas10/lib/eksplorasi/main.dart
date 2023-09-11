@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tugas10/eksplorasi/flutterapp.dart';
 import 'package:tugas10/eksplorasi/navbarscreen.dart';
 
 class Eksplorasi extends StatelessWidget {
@@ -10,18 +9,18 @@ class Eksplorasi extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           color: Color(
             0xff6200EE,
           ),
         ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Color(
             0xff6200EE,
           ),
         )
       ),
-      home: NavbarScreen(),
+      home: const NavbarScreen(),
     );
   }
 }
