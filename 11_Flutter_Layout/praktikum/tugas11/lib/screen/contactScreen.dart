@@ -10,10 +10,10 @@ class ContactScreen extends StatefulWidget {
 
 class _ContactScreenState extends State<ContactScreen> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _namaController = TextEditingController();
-  TextEditingController _nomotController = TextEditingController();
+  final TextEditingController _namaController = TextEditingController();
+  final TextEditingController _nomotController = TextEditingController();
 
-  List<Contact> _contacts = List.empty(growable: true);
+  final List<Contact> _contacts = List.empty(growable: true);
 
   int selectIndex = 0;
   @override
@@ -115,10 +115,10 @@ class _ContactScreenState extends State<ContactScreen> {
                         if (value == null || value.isEmpty) {
                           return 'Nomor harus diisi';
                         }
-                        if (value.contains(r'[\d]')) {
+                        if (value.contains(RegExp(r'\D'))) {
                           return 'Nomor harus terdiri dari angka';
                         }
-                        if (value.length < 8 || value.length >= 15) {
+                        if (value.length < 8 || value.length > 15) {
                           return "Nomor telepon minimal 8 digit dan maksimal 15 digit";
                         }
                         if (!value.startsWith('0')) {
@@ -153,19 +153,24 @@ class _ContactScreenState extends State<ContactScreen> {
 
                     if (form!.validate()) {
                       form.save();
-                      // print(
-                      //     "title : Contacts${_contacts.length}, subtitle : Contacts");
-                      // print(_contacts.asMap());
                       setState(() {
-                        _namaController.text = '';
-                        _nomotController.text = '';
-                        _contacts.add(Contact(nama: nama, nomor: nomor));
+                        bool exists = _contacts.any((contact) =>
+                            contact.nama == nama || contact.nomor == nomor);
+                        if (!exists) {
+                          _contacts.add(Contact(nama: nama, nomor: nomor));
+                        } else {
+                          _contacts[selectIndex].nama = nama;
+                          _contacts[selectIndex].nomor = nomor;
+                        }
+                        _namaController.clear();
+                        _nomotController.clear();
+                        form.reset();
                       });
                     }
-
-                    form.reset();
+                    print(
+                        "title : Contact${_contacts.length}, subtitle: Contacts");
                   },
-                  child: const Text('Submit'),
+                  child: Text('Submit'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurple.shade800,
                     foregroundColor: Colors.white,

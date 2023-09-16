@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tugas11/screen/contactScreen.dart';
+import 'package:tugas11/screen/formAdvance.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const ContactScreen(),
+      home: const FormAdvance(),
     );
   }
 }
