@@ -111,7 +111,7 @@ class _FormAdvanceState extends State<FormAdvance> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // form nama
+                    // form untuk nama
                     TextFormField(
                       controller: _namaController,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -145,7 +145,7 @@ class _FormAdvanceState extends State<FormAdvance> {
                       height: 10,
                     ),
 
-                    // form nomor
+                    // form untuk nomor
                     TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: _nomorController,
@@ -178,7 +178,7 @@ class _FormAdvanceState extends State<FormAdvance> {
                       height: 10,
                     ),
 
-                    // form date
+                    // form nampilin kalender
                     TextFormField(
                       controller: _dateController,
                       onTap: () async {
@@ -212,7 +212,7 @@ class _FormAdvanceState extends State<FormAdvance> {
                       height: 10,
                     ),
 
-                    // pick color
+                    // untuk pick color
                     const Text('Color'),
                     const SizedBox(
                       height: 10,
