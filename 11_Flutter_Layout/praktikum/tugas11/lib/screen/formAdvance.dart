@@ -47,6 +47,7 @@ class _FormAdvanceState extends State<FormAdvance> {
     if (result != null && result.files.isNotEmpty) {
       setState(() {
         _selectedFile = result.files.first;
+        _openSelectedFile();
       });
     }
   }
@@ -382,7 +383,12 @@ class _FormAdvanceState extends State<FormAdvance> {
                           ),
 
                           // list file
-                          Text('File Name : ${_selectedFile!.name}', style: const TextStyle(fontSize: 10,),)
+                          Text(
+                            'File Name : ${_selectedFile!.name}',
+                            style: const TextStyle(
+                              fontSize: 10,
+                            ),
+                          )
                         ],
                       ),
                       trailing: SizedBox(
