@@ -53,9 +53,9 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => GalleryScreen(),
-          '/contact': (context) => ContactScreen(),
-          '/form': (context) => FormAdvance(),
+          '/': (context) => const GalleryScreen(),
+          '/contact': (context) => const ContactScreen(),
+          '/form': (context) => const FormAdvance(),
         },
       ),
     );
