@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// import 'package:tugas13/screen/contact_screen.dart';
-import 'package:tugas13/screen/form_advance.dart';
-import 'package:tugas13/screen/gallery_screen.dart';
+import 'package:tugas13/screen/contact_screen.dart';import 'package:tugas13/screen/gallery_screen.dart';
 import 'package:tugas13/widgets/image.dart';
 import 'package:tugas13/widgets/contact.dart' as contact_store;
 
@@ -58,8 +56,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => const GalleryScreen(),
-          // '/contact': (context) => const ContactScreen(),
-          '/form': (context) => const FormAdvance(),
+          '/contact': (context) => const ContactScreen(),
         },
       ),
     );
