@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tugas13/widgets/contact.dart' as contact_store;
+import 'package:tugas13/models/contact_provider.dart';
 
 class ContactScreen extends StatefulWidget {
   const ContactScreen({super.key});
@@ -10,15 +10,10 @@ class ContactScreen extends StatefulWidget {
 }
 
 class _ContactScreenState extends State<ContactScreen> {
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController _namaController = TextEditingController();
-  final TextEditingController _nomotController = TextEditingController();
-
-  int selectIndex = 0;
-
   @override
   Widget build(BuildContext context) {
-    final contactsProvider = Provider.of<contact_store.Contacts>(context);
+    final contactsProvider =
+        Provider.of<ContactProvider>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -73,10 +68,11 @@ class _ContactScreenState extends State<ContactScreen> {
                 height: 10,
               ),
               Form(
-                key: _formKey,
+                key: contactsProvider.formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // untuk form name
                     TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) {
@@ -96,7 +92,7 @@ class _ContactScreenState extends State<ContactScreen> {
                         return null;
                       },
                       keyboardType: TextInputType.name,
-                      controller: _namaController,
+                      controller: contactsProvider.nameController,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.only(left: 12),
                         hintText: 'Insert Your Name',
@@ -109,9 +105,11 @@ class _ContactScreenState extends State<ContactScreen> {
                     const SizedBox(
                       height: 10,
                     ),
+
+                    // untuk form number
                     TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                      controller: _nomotController,
+                      controller: contactsProvider.numberController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Nomor harus diisi';
@@ -147,38 +145,20 @@ class _ContactScreenState extends State<ContactScreen> {
                   bottom: 15.0,
                 ),
                 child: ElevatedButton(
-                  onPressed: () async {
-                    String nama = _namaController.text.trim();
-                    String nomor = _nomotController.text.trim();
+                  onPressed: () {
+                    String name = contactsProvider.nameController.text.trim();
+                    String number =
+                        contactsProvider.numberController.text.trim();
 
-                    if (_formKey.currentState!.validate()) {
-                      setState(() {
-                        bool exists = contactsProvider.contacts.any((contact) =>
-                            contact['nama'] == nama ||
-                            contact['nomor'] == nomor);
-                        if (!exists) {
-                          contactsProvider
-                              .addContacts({'nama': nama, 'nomor': nomor});
-                        } else {
-                          contactsProvider.contacts[selectIndex]['nama'] = nama;
-                          contactsProvider.contacts[selectIndex]['nomor'] =
-                              nomor;
-                        }
-                        _namaController.clear();
-                        _nomotController.clear();
-                      });
-                    }
-                    for (var contact in contactsProvider.contacts) {
-                      final nama = contact['nama'];
-                      final nomor = contact['nomor'];
-                      debugPrint('{Nama : $nama, Nomor : $nomor}');
-                    }
+                    contactsProvider.addContacts(name, number);
+                    contactsProvider.nameController.clear();
+                    contactsProvider.numberController.clear();
                   },
-                  child: Text('Submit'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurple.shade800,
                     foregroundColor: Colors.white,
                   ),
+                  child: const Text('Submit'),
                 ),
               ),
               contactsProvider.contacts.isEmpty
@@ -197,28 +177,35 @@ class _ContactScreenState extends State<ContactScreen> {
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
+                        // menampilkan index ke-0 dari name
                         ListTile(
                           leading: CircleAvatar(
                             child: Text(
-                              contactsProvider.contacts[index]['nama'][0],
+                              contactsProvider.contacts[index].name[0],
                             ),
                           ),
-                          title: Text(contactsProvider.contacts[index]['nama']),
-                          subtitle: Text(contactsProvider.contacts[index]['nomor']),
+                          // menampilkan name
+                          title: Text(contactsProvider.contacts[index].name),
+                          // menampilkan number
+                          subtitle:
+                              Text(contactsProvider.contacts[index].number),
                           trailing: SizedBox(
                             width: 60,
                             child: Row(
                               children: [
                                 Expanded(
+                                  // untuk edit kontak
                                   child: IconButton(
                                     onPressed: () {
-                                      _namaController.text =
-                                          contactsProvider.contacts[index]['nama'];
-                                      _nomotController.text =
-                                          contactsProvider.contacts[index]['nomor'];
-                                      setState(() {
-                                        selectIndex = index;
-                                      });
+                                      String name = contactsProvider
+                                              .nameController.text =
+                                          contactsProvider.contacts[index].name;
+                                      String number = contactsProvider
+                                              .numberController.text =
+                                          contactsProvider
+                                              .contacts[index].number;
+                                      contactsProvider.editContacts(
+                                          index, name, number);
                                     },
                                     icon: const Icon(
                                       Icons.edit,
@@ -229,12 +216,12 @@ class _ContactScreenState extends State<ContactScreen> {
                                 const SizedBox(
                                   width: 15,
                                 ),
+
+                                // untuk hapus kontak
                                 Expanded(
                                   child: IconButton(
                                     onPressed: () {
-                                      setState(() {
-                                        contactsProvider.contacts.removeAt(index);
-                                      });
+                                      contactsProvider.deleteContacts(index);
                                     },
                                     icon: const Icon(
                                       Icons.delete,
@@ -245,13 +232,54 @@ class _ContactScreenState extends State<ContactScreen> {
                               ],
                             ),
                           ),
-                          onTap: () {},
                         ),
                       ],
                     );
                   }),
             ],
           ),
+        ),
+      ),
+      drawer: Drawer(
+        backgroundColor: Colors.purple.shade50,
+        child: ListView(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 25.0,
+            vertical: 35.0,
+          ),
+          children: <Widget>[
+            InkWell(
+              splashColor: Colors.blueAccent.shade400,
+              onTap: () {
+                Navigator.of(context).pushNamed('/galery');
+              },
+              child: const Text(
+                'Gallery',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            const Divider(color: Colors.black,),
+            const SizedBox(
+              height: 10.0,
+            ),
+            InkWell(
+              splashColor: Colors.blueAccent.shade400,
+              onTap: () {
+                Navigator.of(context).pushNamed('/');
+              },
+              child: const Text(
+                'Contacts',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            const Divider(color: Colors.black,),
+          ],
         ),
       ),
     );

@@ -7,7 +7,6 @@ class ImagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //  soal eksplorasi
     return Scaffold(
       appBar: AppBar(
         title: const Text(
