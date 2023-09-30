@@ -13,7 +13,7 @@ class _ContactScreenState extends State<ContactScreen> {
   @override
   Widget build(BuildContext context) {
     final contactsProvider =
-        Provider.of<ContactProvider>(context, listen: true);
+        Provider.of<ContactProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -75,22 +75,7 @@ class _ContactScreenState extends State<ContactScreen> {
                     // untuk form name
                     TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Nama harus diisi';
-                        }
-                        if (value.length < 2) {
-                          return "Nama harus memiliki minimal 2 kata";
-                        }
-                        if (value.split(' ').every((element) =>
-                            element[0] == element[0].toLowerCase())) {
-                          return 'Nama harus dimulai dengan huruf kapital';
-                        }
-                        if (value.contains(RegExp(r'[\d\W]'))) {
-                          return 'Nama tidak boleh mengandung angka dan karakter';
-                        }
-                        return null;
-                      },
+                      validator: context.read<ContactProvider>().validatorName,
                       keyboardType: TextInputType.name,
                       controller: contactsProvider.nameController,
                       decoration: const InputDecoration(
@@ -110,21 +95,8 @@ class _ContactScreenState extends State<ContactScreen> {
                     TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: contactsProvider.numberController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Nomor harus diisi';
-                        }
-                        if (value.contains(RegExp(r'\D'))) {
-                          return 'Nomor harus terdiri dari angka';
-                        }
-                        if (value.length < 8 || value.length > 15) {
-                          return "Nomor telepon minimal 8 digit dan maksimal 15 digit";
-                        }
-                        if (!value.startsWith('0')) {
-                          return 'Nomor telepon dimulai 0';
-                        }
-                        return null;
-                      },
+                      validator:
+                          context.read<ContactProvider>().validatorNumber,
                       keyboardType: TextInputType.phone,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.only(left: 12),
@@ -146,13 +118,10 @@ class _ContactScreenState extends State<ContactScreen> {
                 ),
                 child: ElevatedButton(
                   onPressed: () {
-                    String name = contactsProvider.nameController.text.trim();
-                    String number =
-                        contactsProvider.numberController.text.trim();
-
-                    contactsProvider.addContacts(name, number);
-                    contactsProvider.nameController.clear();
-                    contactsProvider.numberController.clear();
+                    contactsProvider.addContacts(
+                      contactsProvider.nameController.text.trim(),
+                      contactsProvider.numberController.text.trim(),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurple.shade800,
@@ -161,81 +130,88 @@ class _ContactScreenState extends State<ContactScreen> {
                   child: const Text('Submit'),
                 ),
               ),
-              contactsProvider.contacts.isEmpty
-                  ? Container()
-                  : const Text(
-                      "List Contacts",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                      ),
-                    ),
-              ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: contactsProvider.contacts.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        // menampilkan index ke-0 dari name
-                        ListTile(
-                          leading: CircleAvatar(
-                            child: Text(
-                              contactsProvider.contacts[index].name[0],
-                            ),
+              Consumer<ContactProvider>(
+                builder: (context, contactProvider, _) {
+                  contactsProvider.contact.isEmpty
+                      ? Container()
+                      : const Text(
+                          "List Contacts",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black,
                           ),
-                          // menampilkan name
-                          title: Text(contactsProvider.contacts[index].name),
-                          // menampilkan number
-                          subtitle:
-                              Text(contactsProvider.contacts[index].number),
-                          trailing: SizedBox(
-                            width: 60,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  // untuk edit kontak
-                                  child: IconButton(
-                                    onPressed: () {
-                                      String name = contactsProvider
-                                              .nameController.text =
-                                          contactsProvider.contacts[index].name;
-                                      String number = contactsProvider
-                                              .numberController.text =
-                                          contactsProvider
-                                              .contacts[index].number;
-                                      contactsProvider.editContacts(
-                                          index, name, number);
-                                    },
-                                    icon: const Icon(
-                                      Icons.edit,
-                                      size: 17,
+                        );
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: contactsProvider.contact.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            // menampilkan index ke-0 dari name
+                            ListTile(
+                              leading: CircleAvatar(
+                                child: Text(
+                                  contactsProvider.contact[index].name[0],
+                                ),
+                              ),
+                              // menampilkan name
+                              title: Text(contactsProvider.contact[index].name),
+                              // menampilkan number
+                              subtitle:
+                                  Text(contactsProvider.contact[index].number),
+                              trailing: SizedBox(
+                                width: 60,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      // untuk edit kontak
+                                      child: IconButton(
+                                        onPressed: () {
+                                          contactsProvider.editContacts(
+                                            index,
+                                            contactsProvider
+                                                    .nameController.text =
+                                                contactsProvider
+                                                    .contact[index].name,
+                                            contactsProvider
+                                                    .numberController.text =
+                                                contactsProvider
+                                                    .contact[index].number,
+                                          );
+                                        },
+                                        icon: const Icon(
+                                          Icons.edit,
+                                          size: 17,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 15,
-                                ),
+                                    const SizedBox(
+                                      width: 15,
+                                    ),
 
-                                // untuk hapus kontak
-                                Expanded(
-                                  child: IconButton(
-                                    onPressed: () {
-                                      contactsProvider.deleteContacts(index);
-                                    },
-                                    icon: const Icon(
-                                      Icons.delete,
-                                      size: 17,
+                                    // untuk hapus kontak
+                                    Expanded(
+                                      child: IconButton(
+                                        onPressed: () {
+                                          contactsProvider
+                                              .deleteContacts(index);
+                                        },
+                                        icon: const Icon(
+                                          Icons.delete,
+                                          size: 17,
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
-                      ],
-                    );
-                  }),
+                          ],
+                        );
+                      });
+                },
+              )
             ],
           ),
         ),
@@ -261,7 +237,9 @@ class _ContactScreenState extends State<ContactScreen> {
                 ),
               ),
             ),
-            const Divider(color: Colors.black,),
+            const Divider(
+              color: Colors.black,
+            ),
             const SizedBox(
               height: 10.0,
             ),
@@ -278,7 +256,9 @@ class _ContactScreenState extends State<ContactScreen> {
                 ),
               ),
             ),
-            const Divider(color: Colors.black,),
+            const Divider(
+              color: Colors.black,
+            ),
           ],
         ),
       ),
