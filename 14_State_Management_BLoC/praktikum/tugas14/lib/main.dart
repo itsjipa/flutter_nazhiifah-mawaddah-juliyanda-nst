@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tugas14/bloc/contact_bloc.dart';
 import 'package:tugas14/screen/contact_screen.dart';
+import 'package:tugas14/screen/gallery_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,13 +14,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => SubjectBloc(),
-        ),
-      ],
-      child: MaterialApp(
+    return MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -48,8 +44,13 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home: const ContactScreen(),
-      ),
+        initialRoute: '/contact',
+        routes: {
+          '/contact':(context) => BlocProvider<ContactBlocBloc>(
+            create: (context) => ContactBlocBloc(), child: const ContactScreen(),
+            ),
+          '/galery':(context) => const GalleryScreen()
+        },
     );
   }
 }

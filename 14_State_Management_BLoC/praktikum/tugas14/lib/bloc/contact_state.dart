@@ -2,12 +2,12 @@
 
 part of 'contact_bloc.dart';
 
-abstract class ContactBlocState {}
+abstract class ContactBlocState {
+  List<Contacts> contacts;
+  ContactBlocState({required this.contacts});
+}
 
-final class ContactBlocInitial extends ContactBlocState {}
-
-class ContactLoadedState extends ContactBlocState {
-  final List<Contacts> contact;
-
-  ContactLoadedState(this.contact);
+class ContactInitial extends ContactBlocState {
+  ContactInitial({required List<Contacts> contacts})
+      : super(contacts: contacts);
 }
